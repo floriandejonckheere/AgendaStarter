@@ -29,7 +29,7 @@ public class TestDrive {
     //
     //End TODO attribut(en)
     public static void main(String[] args) {
-        new TestDrive().run();
+        new TestDrive().runAgain();
     }
 
     private List<Contact> createAttendees(int numberToCreate) {
@@ -130,6 +130,61 @@ public class TestDrive {
             System.out.println();
         }
         //
+    }
+    
+    
+    private void runAgain() {
+        System.out.println("Creating an Appointment ");
+        //TODO maak gewone afspraak zonder fout:
+        //
+        //Start datum = new GregorianCalendar(2017, 7, 22, 12, 30)
+        //Locatie = new Location("Hogeschool Gent, D2.014")
+        //Beschrijving = "Project Demo"
+        //uitgenodigden = createAttendees(4)
+        try {
+            appt = Appointment.Builder()
+                    .description("Project Demo")
+                    .startDate(new GregorianCalendar(2017, 7, 22, 12, 30))
+                    .location(new Location("Hogeschool Gent, D2.014"))
+                    .attendees(createAttendees(4))
+                    .build();
+
+            //Afdruk resultaat
+            System.out.println("Successfully created an Appointment.");
+            System.out.println("Appointment information:");
+            System.out.println(appt);
+            System.out.println();
+            //vervolg...(als fouten)
+        } catch (AppointmentException ex) {
+            System.err.println("Could not create meeting: " + ex.getMessage());
+            System.out.println();
+        }
+
+        System.out.println("Creating a meeting : enddate is missing");
+        //TODO maak een meeting met fout:
+        //
+        //Start datum = new GregorianCalendar(2017, 7, 22, 12, 30)
+        //Locatie = new Location("Hogeschool Gent, D2.014")
+        //Beschrijving = "Project Demo"
+        //uitgenodigden = createAttendees(4)
+        try {
+            appt = Appointment.MeetingBuilder()
+                    .description("Project Demo")
+                    .startDate(new GregorianCalendar(2017, 7, 22, 12, 30))
+                    .location(new Location("Hogeschool Gent, D2.014"))
+                    .attendees(createAttendees(4))
+                    .build();
+
+            //Afdruk resultaat
+            System.out.println("Successfully created an Appointment.");
+            System.out.println("Appointment information:");
+            System.out.println(appt);
+            System.out.println();
+            //vervolg...(als fouten)
+        } catch (AppointmentException ex) {
+            System.err.println("Could not create meeting: " + ex.getMessage());
+            System.out.println();
+        }
     }
 
     //TODO een printmethode voor bij fouten : wat er voor de constructie ontbreekt

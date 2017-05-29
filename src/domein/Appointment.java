@@ -79,4 +79,60 @@ public class Appointment {
             }
         }
     }
+    
+    public static Appointment.Builder Builder() {
+        return new Appointment.Builder();
+    }
+    
+    public static Appointment.Builder MeetingBuilder() {
+        return new Appointment.MeetingBuilder();
+    }
+    
+    public static class Builder {
+        protected final Appointment appointment;
+        
+        public Builder() {
+            this.appointment = new Appointment();
+        }
+        
+        public Builder description(String description) {
+            appointment.description = description;
+            return this;
+        }
+        
+        public Builder location(Location location) {
+            appointment.location = location;
+            return this;
+        }
+        
+        public Builder startDate(GregorianCalendar date) {
+            appointment.startDate = date;
+            return this;
+        }
+        
+        public Builder endDate(GregorianCalendar date) {
+            appointment.endDate = date;
+            return this;
+        }
+        
+        public Builder attendees(List<Contact> attendees) {
+            appointment.setAttendees(attendees);
+            return this;
+        }
+        
+        public Appointment build() throws AppointmentException {
+            return appointment;
+        }
+    }
+    
+    public static class MeetingBuilder extends Appointment.Builder {
+
+        @Override
+        public Appointment build() throws AppointmentException {
+            if (appointment.getEndDate() == null)
+                throw new AppointmentException("Dude, does it even end");
+            
+            return appointment;
+        }
+    }
 }
